@@ -51,6 +51,20 @@ class SatcatController < ApplicationController
   # This function gets the end point documentation and displays it to the user
   def get_endpoint_documentation
     result = {
+      'endpoints' => {
+        '/satcat/index' => 'Get examples of how the api can be called',
+        '/satcat/noradcatid?id=4' => 'Search an object by NORAD_CAT_ID. Example, we are searching object id 4',
+        '/satcat/Intldes?id=2022-179A' => 'Search an object by INTLDES. Example we are searching object id 2022-179A',
+        '/satcat/launch?date=1957-10-04' => 'Search objects by LAUNCH date. Example we are searching objects launched on 1957-10-04',
+        '/satcat/constellation/' => {
+          'description' => 'Search satellites in  specific constellation',
+          '/satcat/constellation?name=starlink' => 'Search satellites in starlink constellation',
+          '/satcat/constellation?name=starlink&limit=10' => 'Limit the result to 10 objects',
+          '/satcat/constellation?name=starlink&offset=10' => 'Offset items by 10. Will return item 11 - 60',
+          '/satcat/constellation?name=starlink&limit=20&offset=10' => 'Limit result to 20 and Offset 10. Will return 11-30',
+          'default' => 'default limit is 50 and default offset is 10'
+        }
+      },
       'available satellite constellations' => {
         'Global Positioning System (GPS)' => {
           'description' => 'The Global Positioning System (GPS), originally Navstar GPS is a satellite-based radionavigation system owned by the United States government and operated by the United States Space Force.',
@@ -148,13 +162,7 @@ class SatcatController < ApplicationController
           'description' => 'O3b Networks Ltd. was a network communications service provider building and operating a medium Earth orbit (MEO) satellite constellation primarily intended to provide voice and data communications to mobile operators and Internet service providers. O3b Networks became a wholly owned subsidiary of SES S.A. in 2016 and the operator name was subsequently dropped in favour of SES Networks, a division of SES. The satellites themselves, now part of the SES fleet, continue to use the O3b name.',
           'searchable term' => 'O3B'
         },        
-        },
-      'endpoints' => {
-          '/satcat/index' => 'Get examples of how the api can be called',
-          '/satcat/noradcatid?id=4' => 'Pass NORAD CAT ID number (4 in the example) to recieve the object information',
-          '/satcat/launch?date=1957-10-04' => 'Pass launch date to find items sent to space on that date',
-          '/satcat/constellation?name=starlink' => 'Pass the constellation search term to find its satellites' 
-      }
+        }
     }
   end
 end
