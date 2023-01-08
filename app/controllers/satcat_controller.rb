@@ -11,6 +11,13 @@ class SatcatController < ApplicationController
     render json: response
   end
 
+  def Intldes
+    id = params[:id]
+    url = ENV['BASE_QUERY_URL'] + ENV['INTLDES_QUERY'] + "#{id}" + ENV['SHARED_ENDING']
+    response = call_api(url, "Intldes_#{id}")
+    render json: response
+  end
+
   def launch
     date = params[:date]
     url = ENV['BASE_QUERY_URL'] + ENV['LAUNCH_QUERY'] + "/#{date}" + ENV['SHARED_ENDING']
