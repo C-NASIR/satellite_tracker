@@ -1,38 +1,60 @@
 class SatcatController < ApplicationController
+
+  # This action returns the api decumentation
   def index
     result = get_endpoint_documentation
-    render json: result
+    render json: result, status: :ok
   end
 
+  # This action retruns an object of a given NORAD CAT ID 
   def noradcatid
     id = params[:id]
-    url = ENV['BASE_QUERY_URL'] + ENV['NORAD_CAT_ID_QUERY'] + "#{id}" + ENV['SHARED_ENDING']
-    response = call_api(url, "noradcatid_id_#{id}")
-    render json: response
+    error = valid_noradcat_id(id) # checking if the id is empty and returns bad_request if it is 
+    if error != nil
+      render json: error, status: :bad_request
+    else 
+      url = ENV['BASE_QUERY_URL'] + ENV['NORAD_CAT_ID_QUERY'] + "#{id}" + ENV['SHARED_ENDING']
+      response = call_api(url, "noradcatid_id_#{id}")
+      render json: response, status: :ok
+    end
   end
 
+  # This action returns an object of a given INTLDES id
   def Intldes
     id = params[:id]
-    url = ENV['BASE_QUERY_URL'] + ENV['INTLDES_QUERY'] + "#{id}" + ENV['SHARED_ENDING']
-    response = call_api(url, "Intldes_#{id}")
-    render json: response
+    error = valid_Intldes_id(id)
+    if error != nil
+      render json: error, status: :bad_request
+    else
+      url = ENV['BASE_QUERY_URL'] + ENV['INTLDES_QUERY'] + "#{id}" + ENV['SHARED_ENDING']
+      response = call_api(url, "Intldes_#{id}")
+      render json: response, status: :ok
+    end
   end
 
+  # This action returns launched objects in a given date 
   def launch
     date = params[:date]
     url = ENV['BASE_QUERY_URL'] + ENV['LAUNCH_QUERY'] + "/#{date}" + ENV['SHARED_ENDING']
     response = call_api(url, "launch_date_#{date}")
-    render json: response
+    render json: response, status: :ok
   end
 
+  # This action returns satellites in a given constellation
   def constellation
     name = params[:name]
     limit = params[:limit] == nil ? 50 : params[:limit]
     offset = params[:offset] == nil ? 0 : params[:offset]
 
-    url = ENV['BASE_QUERY_URL'] + ENV['CONSTELLATION_QUERY'] + "#{name}/limit/#{limit},#{offset}" + ENV['SHARED_ENDING']
-    response = call_api(url, "constellation_#{name}_#{limit}_#{offset}")
-    render json: response
+    error = validate_constellation_name(name)
+
+    if error != nil 
+      render json: error, status: :bad_request
+    else
+      url = ENV['BASE_QUERY_URL'] + ENV['CONSTELLATION_QUERY'] + "#{name}/limit/#{limit},#{offset}" + ENV['SHARED_ENDING']
+      response = call_api(url, "constellation_#{name}_#{limit}_#{offset}")
+      render json: response, status: :ok
+    end
   end
 
 
@@ -163,6 +185,53 @@ class SatcatController < ApplicationController
           'searchable term' => 'O3B'
         },        
         }
+    }
+  end
+
+  #checkes if valid input is passed
+  def is_input_empty(input, name)
+    result = input == nil ? {'error' => "Empty input. Please Enter valid #{name}"} : nil
+  end
+
+  #check if norad id is valid 
+  def valid_noradcat_id id
+    # check if the id is empty 
+    empty_error = is_input_empty(id, "NORAD_CAT_ID")
+    return empty_error if empty_error != nil
+
+    #check if the id is valid positive integer 
+    if (id.is_a? Integer) == false || id < 1
+      return {'error' => 'Invalid input type. please pass valid positive integer'}
+    end
+  end
+
+  #check if the intldes id is valid 
+  def valid_Intldes_id id
+    # check if the id is empty 
+    empty_error = is_input_empty(id, "INTLDES")
+    return empty_error if empty_error != nil
+  end
+
+  #check if valid constellation name is passed
+  def validate_constellation_name name
+    empty_error = is_input_empty(name, "CONSTELLATION NAME")
+    return empty_error if empty_error != nil
+
+    names_hash = get_constellations_name_hash
+    if names_hash[name.upcase] == nil
+      return {'error' => 'Invalid constellation name. please pass valid constellation name', 
+              'message' => 'you can get constellation names by calling /satcat/index'}
+    end
+  end
+
+  # Get sattelite hashaes
+  def get_constellations_name_hash
+    names = { 'NAVSTAR' => true, 'NOAA' => true, 'GOES' => true, 'WESTFORD' => true,
+            'GLONASS' => true, 'GORIZONT' => true, 'GONETS' => true, 'GALILEO' => true,
+            'CSS' => true, 'YAOGAN' => true, 'IRNSS' => true, 'STARLINK' => true, 'GLOBALSTAR' => true,
+            'ORBCOMM' => true, 'BEIDOU' => true, 'FLOCK' => true, 'LEMUR' => true, 'JILIAN' => true,
+            'ONEWEB' => true, 'IRIDIUM' => true, 'ASTRO' => true, 'FOSSA' => true, 'INTELSAT' => true,
+            'O3B' => true
     }
   end
 end
