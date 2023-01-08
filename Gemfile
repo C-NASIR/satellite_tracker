@@ -15,6 +15,9 @@ gem "puma", "~> 5.0"
 # Use excon for calling APIs
 gem 'excon'
 
+# Use for .env files
+gem 'dotenv-rails', groups: [:development, :test]
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 

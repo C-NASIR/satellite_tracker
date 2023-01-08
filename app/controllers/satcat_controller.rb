@@ -6,21 +6,26 @@ class SatcatController < ApplicationController
 
   def noradcatid
     id = params[:id]
-    url = "https://www.space-track.org/basicspacedata/query/class/satcat/NORAD_CAT_ID/#{id}/orderby/INTLDES%20desc/emptyresult/show"
+    url = ENV['BASE_QUERY_URL'] + ENV['NORAD_CAT_ID_QUERY'] + "#{id}" + ENV['SHARED_ENDING']
     response = call_api(url, "noradcatid_id_#{id}")
     render json: response
   end
 
   def launch
     date = params[:date]
-    url = "https://www.space-track.org/basicspacedata/query/class/satcat/LAUNCH/#{date}/orderby/INTLDES%20desc/emptyresult/show"
+    url = ENV['BASE_QUERY_URL'] + ENV['LAUNCH_QUERY'] + "/#{date}" + ENV['SHARED_ENDING']
     response = call_api(url, "launch_date_#{date}")
     render json: response
   end
 
   def constellation
     name = params[:name]
-    render json: { 'name' => name}
+    limit = params[:limit] == nil ? 50 : params[:limit]
+    offset = params[:offset] == nil ? 0 : params[:offset]
+
+    url = ENV['BASE_QUERY_URL'] + ENV['CONSTELLATION_QUERY'] + "#{name}/limit/#{limit},#{offset}" + ENV['SHARED_ENDING']
+    response = call_api(url, "constellation_#{name}_#{limit}_#{offset}")
+    render json: response
   end
 
 
@@ -28,9 +33,8 @@ class SatcatController < ApplicationController
   # This functions calls any given api and caches the result, so not to call the api again
   def call_api(query, hash)
     Rails.cache.fetch(hash, expires_in: 12.hours) do
-      print "===============In here ============"
-      response = Excon.post('https://www.space-track.org/ajaxauth/login',
-        :body => "identity=wemafe9257@letpays.com&password=H6hkbXQ-58vuZB3&query=#{query}",
+      response = Excon.post(ENV['LOGIN_URL'],
+        :body => ENV['LOGIN_CREDENTIALS'] + "&query=#{query}",
         :headers => { "Content-Type" => "application/x-www-form-urlencoded" })
 
       response.body
