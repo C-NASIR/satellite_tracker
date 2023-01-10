@@ -1,5 +1,6 @@
+# This helper provides access to needed data like a hash of all available constellations and 
+# documentation API 
 module DataHelper
-
     #Return a hash of all the available data 
     def get_constellations_name_hash
         # I would like to move this hash to its own file 
