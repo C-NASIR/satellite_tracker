@@ -20,7 +20,7 @@ class ApplicationController < ActionController::API
     #handle invalid constellation name exception
     def handle_invalid_constellation_exception
         render json: {'error' => 'Invalid constellation name. please pass valid constellation name', 
-          'message' => 'you can get constellation names by calling /satcat/info'}, status: :bad_request
+          'message' => 'you can get constellation names by calling /api/v1/satcat/info'}, status: :bad_request
     end
 
     # handle third party application exceptions

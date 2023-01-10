@@ -18,16 +18,16 @@ module DataHelper
         # result should be moved to a data file, where we can easily import it 
         result = {
         'endpoints' => {
-            '/satcat/info' => 'Get examples of how the api can be called',
-            '/satcat/noradcatid?id=4' => 'Search an object by NORAD_CAT_ID. Example, we are searching object id 4',
-            '/satcat/Intldes?id=2022-179A' => 'Search an object by INTLDES. Example we are searching object id 2022-179A',
-            '/satcat/launch?date=1957-10-04' => 'Search objects by LAUNCH date. Example we are searching objects launched on 1957-10-04',
-            '/satcat/constellation/' => {
+            '/api/v1/satcat/info' => 'Get examples of how the api can be called',
+            '/api/v1/satcat/noradcatid?id=4' => 'Search an object by NORAD_CAT_ID. Example, we are searching object id 4',
+            '/api/v1/satcat/Intldes?id=2022-179A' => 'Search an object by INTLDES. Example we are searching object id 2022-179A',
+            '/api/v1/satcat/launch?date=1957-10-04' => 'Search objects by LAUNCH date. Example we are searching objects launched on 1957-10-04',
+            '/api/v1/satcat/constellation/' => {
             'description' => 'Search satellites in  specific constellation',
-            '/satcat/constellation?name=starlink' => 'Search satellites in starlink constellation',
-            '/satcat/constellation?name=starlink&limit=10' => 'Limit the result to 10 objects',
-            '/satcat/constellation?name=starlink&offset=10' => 'Offset items by 10. Will return item 11 - 60',
-            '/satcat/constellation?name=starlink&limit=20&offset=10' => 'Limit result to 20 and Offset 10. Will return 11-30',
+            '/api/v1/satcat/constellation?name=starlink' => 'Search satellites in starlink constellation',
+            '/api/v1/satcat/constellation?name=starlink&limit=10' => 'Limit the result to 10 objects',
+            '/api/v1/satcat/constellation?name=starlink&offset=10' => 'Offset items by 10. Will return item 11 - 60',
+            '/api/v1/satcat/constellation?name=starlink&limit=20&offset=10' => 'Limit result to 20 and Offset 10. Will return 11-30',
             'default' => 'default limit is 50 and default offset is 10'
             }
         },
