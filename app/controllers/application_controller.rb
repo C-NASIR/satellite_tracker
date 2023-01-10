@@ -3,6 +3,7 @@ class ApplicationController < ActionController::API
     rescue_from ArgumentError, with: :handle_invalid_input_exception
     rescue_from TypeError, with: :handle_invalid_input_exception
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+    rescue_from Exceptions::AuthenticationError, with: :handle_unauthenticated
     rescue_from Exceptions::EmptyInputException, with: :handle_empty_input_exception
     rescue_from Exceptions::InvalidInputException, with: :handle_invalid_input_exception
     rescue_from Exceptions::InvalidConstellationException, with: :handle_invalid_constellation_exception
@@ -17,6 +18,11 @@ class ApplicationController < ActionController::API
     # handles when record is not found
     def record_not_found 
         render json: {'error' => "User doesn't exist, please pass valid user or create one"}, status: :unprocessable_entity
+    end
+
+    # handles unauthorized errors
+    def handle_unauthenticated
+        render json: {'error' => "Please login to access this api"}, status: :unauthorized
     end
     
     # handles invalid request exception

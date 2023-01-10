@@ -59,6 +59,8 @@ module Api
       # Authorization using: Bearer <token>
       def authenticate
         token, _options = token_and_options(request)
+        raise Exceptions::AuthenticationError if token == nil
+
         user_id = AuthenticationTokenService.decode(token)
         User.find(user_id)
       end

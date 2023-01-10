@@ -1,8 +1,8 @@
 module Api
     module V1 
       class AuthenticationController < ApplicationController
+        # rescue params missing errors
         rescue_from ActionController::ParameterMissing, with: :parameter_missing
-        rescue_from Exceptions::AuthenticationError, with: :handle_unauthenticated
 
         #this end points creates user 
         def create
@@ -21,10 +21,6 @@ module Api
 
         def parameter_missing e
             render json: {'error' => e.message}, status: :unprocessable_entity
-        end
-
-        def handle_unauthenticated
-            render json: {'error' => "Please pass valid username and password"}, status: :unauthorized
         end
        end     
     end
