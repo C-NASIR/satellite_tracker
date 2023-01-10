@@ -9,7 +9,8 @@ Rails.application.routes.draw do
       get 'satcat/Intldes'
 
       # Authentication
-      post 'authenticate', to: 'authentication#create'
+      post 'signin', to: 'authentication#signin'
+      post 'signup', to: 'authentication#signup'
     end
   end
 end

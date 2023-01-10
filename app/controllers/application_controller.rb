@@ -17,12 +17,12 @@ class ApplicationController < ActionController::API
 
     # handles when record is not found
     def record_not_found 
-        render json: {'error' => "User doesn't exist, please pass valid user or create one"}, status: :unprocessable_entity
+        render json: {'error' => "User doesn't exist, please pass valid user or create one"}, status: :not_found
     end
 
     # handles unauthorized errors
     def handle_unauthenticated
-        render json: {'error' => "Please login to access this api"}, status: :unauthorized
+        render json: {'Login Error' => "Please login to access this api."}, status: :unauthorized
     end
     
     # handles invalid request exception

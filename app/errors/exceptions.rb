@@ -7,6 +7,8 @@ module Exceptions
   end
   class AuthenticationError < StandardError
   end
+  class UserAlreadyExistsError < StandardError
+  end
   # Exception for third party application
   class ThirdPartyAPIException < StandardError
     def initialize(message, status)
