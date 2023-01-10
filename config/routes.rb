@@ -7,6 +7,9 @@ Rails.application.routes.draw do
       get 'satcat/launch'
       get 'satcat/constellation'
       get 'satcat/Intldes'
+
+      # Authentication
+      post 'authenticate', to: 'authentication#create'
     end
   end
 end

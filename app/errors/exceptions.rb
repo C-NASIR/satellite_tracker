@@ -5,6 +5,8 @@ module Exceptions
   end
   class InvalidConstellationException < StandardError
   end
+  class AuthenticationError < StandardError
+  end
   # Exception for third party application
   class ThirdPartyAPIException < StandardError
     def initialize(message, status)
