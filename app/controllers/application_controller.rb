@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::API
+    # include needed modules
+    include DataHelper
+
     # Rescue all most exceptions of application controller children
     rescue_from ArgumentError, with: :handle_invalid_input_exception
     rescue_from TypeError, with: :handle_invalid_input_exception
@@ -8,6 +11,12 @@ class ApplicationController < ActionController::API
     rescue_from Exceptions::InvalidInputException, with: :handle_invalid_input_exception
     rescue_from Exceptions::InvalidConstellationException, with: :handle_invalid_constellation_exception
     rescue_from Exceptions::ThirdPartyAPIException, with: :handle_third_party_exception
+
+
+    # This index handles code for when you first visit
+    def index
+        render json: get_home_page_info
+    end
 
     private
     # handle empty input exception

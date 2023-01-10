@@ -1,6 +1,17 @@
 # This helper provides access to needed data like a hash of all available constellations and 
 # documentation API 
 module DataHelper
+
+    # Returns a initial home page info 
+    def get_home_page_info
+        result = {
+            "Description" => 'Welcome to the satellite api. Here you can search for specific satellites and constellations',
+            "signup" => "to use, you will need to create an account please send post request with email and password to /api/v1/signup",
+            "signin" => "If you already have account. get your API KEY by sending post request with email and password to /api/v1/signin",
+            "browse" => "If you just want to browse, see all the end points at /api/v1/satcat/info. (No need to login)"
+        }
+    end
+
     #Return a hash of all the available data 
     def get_constellations_name_hash
         # I would like to move this hash to its own file 
