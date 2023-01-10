@@ -41,6 +41,7 @@ module SatcatHelper
 
     # This functions calls any given api and caches the result, so not to call the api again
     def call_api(query, hash)
+        # This caches api responses, so if you call the same API with the same params in 12, you will get the cache
         Rails.cache.fetch(hash, expires_in: 12.hours) do
             # NOTICE: I am forgetting an exception here. In-case the API call fails 
             response =  Excon.post(ENV['LOGIN_URL'],

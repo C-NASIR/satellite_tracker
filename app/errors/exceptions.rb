@@ -17,6 +17,7 @@ module Exceptions
 
     end
     
+    # Returns the appropriate status code based on the one that is thrown
     def status
       return :ok if @status == 200
       return :unauthorized if @status == 401

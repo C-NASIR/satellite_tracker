@@ -3,22 +3,27 @@
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
-Things you may want to cover:
+# Versions
 
-* Ruby version
+Rails 7.0.4
+ruby 3.2.0 (2022-12-25 revision a528908271)
 
-* System dependencies
+# Describe your approach to solving this problem 
 
-* Configuration
+# Comments explaining implementation 
 
-* Database creation
+# Detail future improvements/expansions of the solution
 
-* Database initialization
+# The API endpoints 
 
-* How to run the test suite
+visit /api/v1/satcat/info to get all end points and available satellite constellations
 
-* Services (job queues, cache servers, search engines, etc.)
+# How readable is your code?  
 
-* Deployment instructions
+# How easy would it be to integrate this code into a wider code base? 
 
-* ...
+# How easy would it be for another developer to continue working on this project? 
+
+# Usage of object-oriented programming (OOP) where it makes sense 
+
+# Is your code testable?

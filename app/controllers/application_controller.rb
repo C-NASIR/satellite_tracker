@@ -19,6 +19,7 @@ class ApplicationController < ActionController::API
     end
 
     private
+    
     # handle empty input exception
     def handle_empty_input_exception e
         render json: {"empty input" => "Please enter valid input"}, status: :bad_request

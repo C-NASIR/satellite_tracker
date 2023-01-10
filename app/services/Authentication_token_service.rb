@@ -1,4 +1,6 @@
+# This class is responsible of token authentication 
 class AuthenticationTokenService
+    # constances we may need in another file. like a test file
     HMAC_SECRET = '$ecret@Key'
     ALGORITHM_TYPE = 'HS256'
 
