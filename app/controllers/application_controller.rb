@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
     # Rescue all most exceptions of application controller children
-    rescue_from ArgumentError, with: :handle_invalid_input
-    rescue_from TypeError, with: :handle_invalid_input
+    rescue_from ArgumentError, with: :handle_invalid_input_exception
+    rescue_from TypeError, with: :handle_invalid_input_exception
     rescue_from Exceptions::EmptyInputException, with: :handle_empty_input_exception
     rescue_from Exceptions::InvalidInputException, with: :handle_invalid_input_exception
     rescue_from Exceptions::InvalidConstellationException, with: :handle_invalid_constellation_exception
