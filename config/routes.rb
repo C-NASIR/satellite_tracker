@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'satcat/index'
+  get 'satcat/info'
   get 'satcat/noradcatid'
   get 'satcat/launch'
   get 'satcat/constellation'
