@@ -1,8 +1,7 @@
 module Api
     module V1 
       class AuthenticationController < ApplicationController
-        # rescue params missing errors
-        rescue_from ActionController::ParameterMissing, with: :parameter_missing
+        # rescue when user already exists
         rescue_from Exceptions::UserAlreadyExistsError, with: :user_already_exists_error
 
         #this end point signs up a user 
@@ -32,11 +31,6 @@ module Api
         # creates a user property that can we use throughout the class
         def user
             @user ||= User.find_by!(username: params.require(:username))
-        end
-
-        # handles when parameter is missing 
-        def parameter_missing e
-            render json: {'error' => e.message}, status: :unprocessable_entity
         end
 
         #handles when user already exists 

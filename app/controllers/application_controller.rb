@@ -5,9 +5,9 @@ class ApplicationController < ActionController::API
     # Rescue all most exceptions of application controller children
     rescue_from ArgumentError, with: :handle_invalid_input_exception
     rescue_from TypeError, with: :handle_invalid_input_exception
+    rescue_from ActionController::ParameterMissing, with: :parameter_missing
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     rescue_from Exceptions::AuthenticationError, with: :handle_unauthenticated
-    rescue_from Exceptions::EmptyInputException, with: :handle_empty_input_exception
     rescue_from Exceptions::InvalidInputException, with: :handle_invalid_input_exception
     rescue_from Exceptions::InvalidConstellationException, with: :handle_invalid_constellation_exception
     rescue_from Exceptions::ThirdPartyAPIException, with: :handle_third_party_exception
@@ -19,11 +19,11 @@ class ApplicationController < ActionController::API
     end
 
     private
-    
-    # handle empty input exception
-    def handle_empty_input_exception e
-        render json: {"empty input" => "Please enter valid input"}, status: :bad_request
-    end
+
+    # handles when parameter is missing 
+    def parameter_missing e
+        render json: {'error' => e.message}, status: :unprocessable_entity
+     end
 
     # handles when record is not found
     def record_not_found 
@@ -43,7 +43,7 @@ class ApplicationController < ActionController::API
     #handle invalid constellation name exception
     def handle_invalid_constellation_exception
         render json: {'error' => 'Invalid constellation name. please pass valid constellation name', 
-          'message' => 'you can get constellation names by calling /api/v1/satcat/'}, status: :bad_request
+          'message' => 'you can get constellation names by calling /api/v1/satcat/info'}, status: :bad_request
     end
 
     # handle third party application exceptions

@@ -1,6 +1,4 @@
 module Exceptions
-  class EmptyInputException < StandardError 
-  end
   class InvalidInputException < StandardError
   end
   class InvalidConstellationException < StandardError

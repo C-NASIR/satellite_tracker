@@ -16,7 +16,7 @@ module Api
      
       # This action retruns an object of a given NORAD CAT ID 
       def noradcatid
-        id = params[:id]
+        id = params.require(:id)
         error = validate_noradcat_id(id) # checking if the id is empty and returns bad_request if it is 
         url = ENV['BASE_QUERY_URL'] + ENV['NORAD_CAT_ID_QUERY'] + "#{id}" + ENV['SHARED_ENDING']
         response = call_api(url, "noradcatid_id_#{id}")
@@ -25,7 +25,7 @@ module Api
      
       # This action returns an object of a given INTLDES id
       def Intldes
-        id = params[:id]
+        id = params.require(:id)
         validate_Intldes_id id
         url = ENV['BASE_QUERY_URL'] + ENV['INTLDES_QUERY'] + "#{id}" + ENV['SHARED_ENDING']
         response = call_api(url, "Intldes_#{id}")
@@ -34,7 +34,7 @@ module Api
      
       # This action returns launched objects in a given date 
       def launch
-        date = params[:date]
+        date = params.require(:date)
         validate_launch_date date
         url = ENV['BASE_QUERY_URL'] + ENV['LAUNCH_QUERY'] + "/#{date}" + ENV['SHARED_ENDING']
         response = call_api(url, "launch_date_#{date}")
@@ -43,7 +43,7 @@ module Api
      
       # This action returns satellites in a given constellation
       def constellation
-        name = params[:name]
+        name = params.require(:name)
         limit = params[:limit] == nil ? 50 : params[:limit]
         offset = params[:offset] == nil ? 0 : params[:offset]
      
