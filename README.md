@@ -21,6 +21,7 @@ ruby 3.2.0 (2022-12-25 revision a528908271)
 
 ### How to use the application
 
+- Clone the repo
 - install the bundle
 - resolve two bending migrations: run "bin/rails db:migrate"
 - enable caching in development mode: run "rails dev:cache" otherwise every query will take a long time.
