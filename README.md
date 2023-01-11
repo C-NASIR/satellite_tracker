@@ -21,8 +21,10 @@ ruby 3.2.0 (2022-12-25 revision a528908271)
 
 ### How to use the application
 
-- You will need an .env file to run this application
 - install the bundle
+- resolve two bending migrations: run "bin/rails db:migrate"
+- enable caching in development mode: run "rails dev:cache" otherwise every query will take a long time.
+- You will need an .env file to to query endpoints
 - run the application. You should get a message about certain end-points and what you can do with them
 - You can call "_/api/v1/satcat/info_" to get api endpoint documentation
 - To call other endpoints you will need to create an account
