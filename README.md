@@ -61,7 +61,7 @@ The code is very madular, organized, and written. It is very easy to comprehend 
 
 The code is very madular. Every class does a single job and can be copied and pasted to a wider code base.
 
-# How easy would it be for another developer to continue working on this project?
+### How easy would it be for another developer to continue working on this project?
 
 Very easy. Every module is concise and to the point. Anyone who knows basic rails api shouldn't have a problem expanding it.
 
