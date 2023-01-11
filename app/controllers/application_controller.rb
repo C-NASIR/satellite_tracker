@@ -37,7 +37,7 @@ class ApplicationController < ActionController::API
     
     # handles invalid request exception
     def handle_invalid_input_exception e
-        render json: {"invalid input" => e}, status: :bad_request
+        render json: {"invalid input" => "Please pass valid input"}, status: :bad_request
     end
     
     #handle invalid constellation name exception
